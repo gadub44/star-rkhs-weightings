@@ -5,6 +5,7 @@ import pandas as pd
 from time import time
 import shap
 
+from expe_utils import ensure_folder_exists
 from FeatureSubsets import FSModel
 from Learners import LeastSquaresLearner
 from RKHSWeightings import RKHSWeightingRegressor
@@ -17,6 +18,8 @@ visuals.set_visual_settings()
 parser = argparse.ArgumentParser(description='Computation time comparison of SAM_Explainer.')
 parser.add_argument('--norun', action='store_true', help='Do not run the experiment. Only generate the figure.')
 args = parser.parse_args()
+
+TABLES_FOLDER = './figures/' ; ensure_folder_exists(TABLES_FOLDER)
 
 RNG = np.random.default_rng(0)
 MAX_DIM = 20

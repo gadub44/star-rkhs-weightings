@@ -60,7 +60,7 @@ class TestParams:
         self.FS_PARAMS = {'fs_type' : ['seq']}
         self.EBM_PARAMS = {'max_bins': [512],
                            'learning_rate': [0.005],
-                           'max_rounds': [15000],
+                           'max_rounds': [1000],
                            'min_samples_leaf': [1]}
 
 

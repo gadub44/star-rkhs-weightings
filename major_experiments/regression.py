@@ -97,7 +97,7 @@ class TestParams:
         self.TREE_PARAMS = {'max_depth' : [2]}
         self.EBM_PARAMS = {'max_bins': [512],
                            'learning_rate': [0.005],
-                           'max_rounds': [15000],
+                           'max_rounds': [1000],
                            'min_samples_leaf': [1]}
 
 
@@ -115,7 +115,7 @@ class AlmostFinalParams:
         self.FS_PARAMS = {'fs_type' : ['any']}
         self.KR_PARAMS = {'kernel' : ['rbf'], 'alpha' : [0.01, 0.05, 0.1, 0.5, 1, 5]}
         self.SVM_PARAMS = {'C' : [0.5, 1, 5, 10, 50]}
-        self.TREE_PARAMS = {'max_depth' : [2, 5, 10, 20]}
+        self.TREE_PARAMS = {'max_depth' : [2, 5, 10]}
         self.EBM_PARAMS = {'max_bins': [512, 1024, 2048],
                            'learning_rate': [0.005, 0.01, 0.02],
                            'max_rounds': [15000, 25000, 35000],
