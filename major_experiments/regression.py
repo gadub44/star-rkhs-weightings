@@ -8,6 +8,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import ParameterGrid
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
+from typing import Union
 
 from dataset_loaders import *
 from expe_utils import TABLES_FOLDER
@@ -15,7 +16,6 @@ from expe_utils import RegressionExperiment, TableMaker
 from FeatureSubsets import FSModel
 from Learners import *
 from Model import *
-from Pruners import *
 
 def parse():
     parser = argparse.ArgumentParser(description='Regression experiment for STAR RKHS Weightings of functions.')
