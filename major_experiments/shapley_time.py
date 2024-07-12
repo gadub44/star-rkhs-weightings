@@ -5,7 +5,7 @@ import pandas as pd
 from time import time
 import shap
 
-from expe_utils import ensure_folder_exists
+from expe_utils import RESULTS_FOLDER, FIGURES_FOLDER
 from FeatureSubsets import FSModel
 from Learners import LeastSquaresLearner
 from RKHSWeightings import RKHSWeightingRegressor
@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser(description='Computation time comparison of SAM
 parser.add_argument('--norun', action='store_true', help='Do not run the experiment. Only generate the figure.')
 args = parser.parse_args()
 
-TABLES_FOLDER = './figures/' ; ensure_folder_exists(TABLES_FOLDER)
+
 
 RNG = np.random.default_rng(0)
 MAX_DIM = 20
@@ -28,8 +28,8 @@ MIN_FS_LENGTH = MAX_FS_LENGTH
 MAX_SHAP_DIM = 13
 MAX_N_SHAP_DIM = 8
 N_SAMPLES = 100 # Increase this to smooth out the figure
-RESULTS_PATH = './results/shapley_time.csv'
-FIG_PATH = './figures/shapley_time.pdf'
+RESULTS_PATH = RESULTS_FOLDER + 'shapley_time.csv'
+FIG_PATH = FIGURES_FOLDER + 'shapley_time.pdf'
 VERBOSE = True
 RUN = not args.norun
 
