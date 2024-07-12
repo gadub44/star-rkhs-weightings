@@ -10,8 +10,7 @@ from utils import ensure_folder_exists
 from dataset_loaders import Loader
 from Learners import *
 from Model import *
-from Pruners import *
-from RKHSWeightings import RKHSWeightingCV
+from RKHSWeightings import RKHSWeightingCV, RKHSWeightingRegressor
 
 RESULTS_FOLDER = './results/' ; ensure_folder_exists(RESULTS_FOLDER)
 TABLES_FOLDER = './tables/' ; ensure_folder_exists(TABLES_FOLDER)
