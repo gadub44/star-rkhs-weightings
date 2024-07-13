@@ -67,19 +67,19 @@ class MSE(Loss):
         super().__init__()
 
     def calculate(self, output: np.ndarray, targets: np.ndarray) -> float:
-        return np.mean((output - targets)**2)
+        return 0.5 * np.mean((output - targets)**2)
 
     def derivative(self, output: np.ndarray, targets: np.ndarray) -> np.ndarray:
-        return 2*(output - targets)
+        return output - targets
 
     def max_value(self, max_model_output: float) -> float:
-        return (max_model_output + 1.0)**2
+        return 0.5 * (max_model_output + 1.0)**2
 
     def min_value(self, max_model_output: float) -> float:
         return 0.0
 
     def lipschitz(self, max_model_output: float) -> float:
-        return 2*(max_model_output + 1)
+        return max_model_output + 1
 
 
 class Hinge(Loss):
