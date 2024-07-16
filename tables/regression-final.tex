@@ -1,0 +1,133 @@
+\begin{tabular}{llrrr}
+\toprule
+ &  & Training $R^2$ & Test $R^2$ & Training time (s) \\
+dataset & algorithm &  &  &  \\
+\midrule
+\multirow[t]{20}{*}{abalone} & DecisionTreeRegressor & 0.554 & 0.499 & 0.012 \\
+ & EBM & 0.641 & 0.552 & 2.001 \\
+ & KernelRidge & 0.604 & 0.587 & 0.293 \\
+ & LinearRegression & 0.535 & 0.543 & 0.002 \\
+ & RWRelu & 0.603 & 0.577 & 2.192 \\
+ & RWRelu 1-STAR & 0.561 & 0.555 & 39.739 \\
+ & RWRelu 2-STAR & 0.604 & 0.577 & 16.786 \\
+ & RWRelu 3-STAR & 0.608 & 0.580 & 12.813 \\
+ & RWRelu 4-STAR & 0.605 & 0.579 & 11.965 \\
+ & RWRelu 5-STAR & 0.598 & 0.578 & 12.079 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.605 & 0.577 & 11.494 \\
+ & RWSign & 0.604 & 0.578 & 1.782 \\
+ & RWSign 1-STAR & 0.322 & 0.350 & 38.168 \\
+ & RWSign 2-STAR & 0.594 & 0.579 & 15.298 \\
+ & RWSign 3-STAR & 0.606 & 0.586 & 11.315 \\
+ & RWSign 4-STAR & 0.601 & 0.585 & 10.619 \\
+ & RWSign 5-STAR & 0.591 & 0.580 & 10.252 \\
+ & RWSign [1, 2, 3, 4, 5]-STAR & 0.607 & 0.580 & 9.762 \\
+ & RWStumps & 0.577 & 0.567 & 1.857 \\
+ & SVR & 0.594 & 0.564 & 0.444 \\
+\cline{1-5}
+\multirow[t]{20}{*}{concrete} & DecisionTreeRegressor & 0.984 & 0.796 & 0.009 \\
+ & EBM & 0.974 & 0.931 & 3.450 \\
+ & KernelRidge & 0.964 & 0.831 & 0.020 \\
+ & LinearRegression & 0.611 & 0.623 & 0.002 \\
+ & RWRelu & 0.935 & 0.835 & 1.418 \\
+ & RWRelu 1-STAR & 0.798 & 0.780 & 44.324 \\
+ & RWRelu 2-STAR & 0.920 & 0.847 & 18.407 \\
+ & RWRelu 3-STAR & 0.943 & 0.847 & 13.428 \\
+ & RWRelu 4-STAR & 0.945 & 0.846 & 12.395 \\
+ & RWRelu 5-STAR & 0.936 & 0.844 & 13.644 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.930 & 0.808 & 10.174 \\
+ & RWSign & 0.944 & 0.828 & 1.334 \\
+ & RWSign 1-STAR & 0.535 & 0.471 & 44.153 \\
+ & RWSign 2-STAR & 0.941 & 0.835 & 18.136 \\
+ & RWSign 3-STAR & 0.967 & 0.840 & 12.846 \\
+ & RWSign 4-STAR & 0.916 & 0.794 & 12.208 \\
+ & RWSign 5-STAR & 0.877 & 0.770 & 13.161 \\
+ & RWSign [1, 2, 3, 4, 5]-STAR & 0.929 & 0.826 & 9.454 \\
+ & RWStumps & 0.953 & 0.911 & 1.493 \\
+ & SVR & 0.966 & 0.799 & 0.116 \\
+\cline{1-5}
+\multirow[t]{20}{*}{conductivity} & DecisionTreeRegressor & 0.984 & 0.882 & 1.107 \\
+ & EBM & 0.961 & 0.903 & 228.946 \\
+ & KernelRidge & 0.905 & 0.872 & 12.054 \\
+ & LinearRegression & 0.737 & 0.736 & 0.034 \\
+ & RWRelu & 0.864 & 0.842 & 6.915 \\
+ & RWRelu 1-STAR & 0.785 & 0.777 & 24.983 \\
+ & RWRelu 2-STAR & 0.816 & 0.805 & 22.070 \\
+ & RWRelu 3-STAR & 0.570 & 0.568 & 23.091 \\
+ & RWRelu 4-STAR & 0.033 & 0.032 & 24.111 \\
+ & RWRelu 5-STAR & 0.001 & 0.001 & 25.515 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.787 & 0.779 & 22.923 \\
+ & RWSign & 0.731 & 0.728 & 5.515 \\
+ & RWSign 1-STAR & 0.702 & 0.685 & 17.847 \\
+ & RWSign 2-STAR & 0.830 & 0.816 & 15.322 \\
+ & RWSign 3-STAR & 0.472 & 0.468 & 15.428 \\
+ & RWSign 4-STAR & 0.003 & 0.003 & 16.103 \\
+ & RWSign 5-STAR & 0.000 & -0.000 & 17.207 \\
+ & RWSign [1, 2, 3, 4, 5]-STAR & 0.710 & 0.694 & 15.811 \\
+ & RWStumps & 0.880 & 0.859 & 5.177 \\
+ & SVR & 0.896 & 0.862 & 19.702 \\
+\cline{1-5}
+\multirow[t]{20}{*}{diabetes} & DecisionTreeRegressor & 0.496 & 0.105 & 0.002 \\
+ & EBM & 0.711 & 0.331 & 0.944 \\
+ & KernelRidge & 0.692 & 0.282 & 0.015 \\
+ & LinearRegression & 0.555 & 0.359 & 0.001 \\
+ & RWRelu & 0.604 & 0.349 & 1.288 \\
+ & RWRelu 1-STAR & 0.588 & 0.314 & 36.553 \\
+ & RWRelu 2-STAR & 0.628 & 0.305 & 13.961 \\
+ & RWRelu 3-STAR & 0.618 & 0.332 & 9.963 \\
+ & RWRelu 4-STAR & 0.607 & 0.350 & 9.100 \\
+ & RWRelu 5-STAR & 0.618 & 0.334 & 8.803 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.622 & 0.298 & 8.535 \\
+ & RWSign & 0.546 & 0.348 & 1.277 \\
+ & RWSign 1-STAR & 0.472 & 0.302 & 36.533 \\
+ & RWSign 2-STAR & 0.563 & 0.369 & 13.671 \\
+ & RWSign 3-STAR & 0.617 & 0.339 & 9.642 \\
+ & RWSign 4-STAR & 0.590 & 0.349 & 8.680 \\
+ & RWSign 5-STAR & 0.615 & 0.333 & 8.609 \\
+ & RWSign [1, 2, 3, 4, 5]-STAR & 0.593 & 0.399 & 8.296 \\
+ & RWStumps & 0.575 & 0.339 & 1.238 \\
+ & SVR & 0.668 & 0.293 & 0.009 \\
+\cline{1-5}
+\multirow[t]{20}{*}{housing} & DecisionTreeRegressor & 0.837 & 0.677 & 0.101 \\
+ & EBM & 0.855 & 0.822 & 26.645 \\
+ & KernelRidge & 0.800 & 0.771 & 11.045 \\
+ & LinearRegression & 0.611 & 0.591 & 0.005 \\
+ & RWRelu & 0.751 & 0.734 & 6.330 \\
+ & RWRelu 1-STAR & 0.685 & 0.662 & 58.478 \\
+ & RWRelu 2-STAR & 0.747 & 0.731 & 32.702 \\
+ & RWRelu 3-STAR & 0.760 & 0.744 & 27.942 \\
+ & RWRelu 4-STAR & 0.753 & 0.737 & 27.897 \\
+ & RWRelu 5-STAR & 0.749 & 0.729 & 30.286 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.746 & 0.732 & 24.713 \\
+ & RWSign & 0.733 & 0.711 & 4.652 \\
+ & RWSign 1-STAR & 0.362 & 0.354 & 50.572 \\
+ & RWSign 2-STAR & 0.724 & 0.696 & 27.496 \\
+ & RWSign 3-STAR & 0.751 & 0.720 & 22.192 \\
+ & RWSign 4-STAR & 0.726 & 0.708 & 22.000 \\
+ & RWSign 5-STAR & 0.723 & 0.705 & 21.997 \\
+ & RWSign [1, 2, 3, 4, 5]-STAR & 0.718 & 0.698 & 18.047 \\
+ & RWStumps & 0.796 & 0.768 & 4.672 \\
+ & SVR & 0.804 & 0.770 & 34.621 \\
+\cline{1-5}
+\multirow[t]{20}{*}{wine} & DecisionTreeRegressor & 1.000 & 0.867 & 0.001 \\
+ & EBM & 0.991 & 0.897 & 4.132 \\
+ & KernelRidge & 0.994 & 0.951 & 0.003 \\
+ & LinearRegression & 0.919 & 0.804 & 0.001 \\
+ & RWRelu & 0.952 & 0.832 & 1.312 \\
+ & RWRelu 1-STAR & 0.938 & 0.808 & 29.902 \\
+ & RWRelu 2-STAR & 0.980 & 0.843 & 11.074 \\
+ & RWRelu 3-STAR & 0.962 & 0.845 & 8.443 \\
+ & RWRelu 4-STAR & 0.966 & 0.835 & 7.645 \\
+ & RWRelu 5-STAR & 0.943 & 0.837 & 7.437 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.963 & 0.826 & 7.873 \\
+ & RWSign & 0.983 & 0.893 & 1.262 \\
+ & RWSign 1-STAR & 0.868 & 0.750 & 29.634 \\
+ & RWSign 2-STAR & 1.000 & 0.868 & 10.777 \\
+ & RWSign 3-STAR & 0.993 & 0.912 & 8.157 \\
+ & RWSign 4-STAR & 0.988 & 0.896 & 7.381 \\
+ & RWSign 5-STAR & 0.985 & 0.899 & 7.174 \\
+ & RWSign [1, 2, 3, 4, 5]-STAR & 0.980 & 0.840 & 7.574 \\
+ & RWStumps & 0.930 & 0.864 & 1.263 \\
+ & SVR & 0.985 & 0.950 & 0.002 \\
+\cline{1-5}
+\bottomrule
+\end{tabular}
