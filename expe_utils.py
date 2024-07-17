@@ -14,7 +14,7 @@ from RKHSWeightings import RKHSWeightingCV, RKHSWeightingRegressor
 
 RESULTS_FOLDER = './results/' ; ensure_folder_exists(RESULTS_FOLDER)
 TABLES_FOLDER = './tables/' ; ensure_folder_exists(TABLES_FOLDER)
-FIGURES_FOLDER = './figures/' ; ensure_folder_exists(TABLES_FOLDER)
+FIGURES_FOLDER = './figures/' ; ensure_folder_exists(FIGURES_FOLDER)
 
 def get_R2(clf, data_loader: Loader):
     results = {}
