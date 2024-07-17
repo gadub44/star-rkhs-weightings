@@ -148,7 +148,7 @@ class UCR_Loader(Loader):
         y_test = test_data[:, 0]
         return X_train, X_test, y_train, y_test
     
-    def _load_full(self):
+    def _load_full(self, train_size=None):
         X_train, X_test, y_train, y_test = self.load_ucr()
         if self.regression:
             X_train, X_test, y_train, y_test = self.regressionify(X_train, X_test)            
