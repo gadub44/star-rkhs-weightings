@@ -1,0 +1,61 @@
+\begin{tabular}{llrrr}
+\toprule
+ &  & Training $R^2$ & Test $R^2$ & Training time (s) \\
+dataset & algorithm &  &  &  \\
+\midrule
+\multirow[t]{8}{*}{ChlorineConcentration} & EBM & 0.955 & 0.916 & 63.853 \\
+ & RWRelu & 0.934 & 0.928 & 3.307 \\
+ & RWRelu 1-STAR & 0.638 & 0.642 & 36.375 \\
+ & RWRelu 2-STAR & 0.813 & 0.805 & 40.390 \\
+ & RWRelu 3-STAR & 0.907 & 0.899 & 44.500 \\
+ & RWRelu 4-STAR & 0.928 & 0.920 & 48.720 \\
+ & RWRelu 5-STAR & 0.939 & 0.927 & 54.159 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.924 & 0.906 & 19.823 \\
+\cline{1-5}
+\multirow[t]{8}{*}{Computers} & EBM & 0.882 & 0.842 & 16.291 \\
+ & RWRelu & 0.821 & 0.851 & 6.085 \\
+ & RWRelu 1-STAR & 0.786 & 0.838 & 44.742 \\
+ & RWRelu 2-STAR & 0.802 & 0.840 & 50.501 \\
+ & RWRelu 3-STAR & 0.811 & 0.848 & 55.049 \\
+ & RWRelu 4-STAR & 0.814 & 0.847 & 58.744 \\
+ & RWRelu 5-STAR & 0.818 & 0.848 & 64.858 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.817 & 0.849 & 29.086 \\
+\cline{1-5}
+\multirow[t]{8}{*}{ECG5000} & EBM & 0.943 & 0.886 & 23.525 \\
+ & RWRelu & 0.900 & 0.882 & 3.144 \\
+ & RWRelu 1-STAR & 0.843 & 0.841 & 36.361 \\
+ & RWRelu 2-STAR & 0.877 & 0.871 & 40.024 \\
+ & RWRelu 3-STAR & 0.883 & 0.875 & 43.769 \\
+ & RWRelu 4-STAR & 0.893 & 0.879 & 48.122 \\
+ & RWRelu 5-STAR & 0.899 & 0.882 & 53.384 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.894 & 0.882 & 19.157 \\
+\cline{1-5}
+\multirow[t]{8}{*}{FacesUCR} & EBM & 0.868 & 0.661 & 7.674 \\
+ & RWRelu & 0.715 & 0.704 & 1.929 \\
+ & RWRelu 1-STAR & 0.679 & 0.698 & 33.011 \\
+ & RWRelu 2-STAR & 0.690 & 0.702 & 35.613 \\
+ & RWRelu 3-STAR & 0.699 & 0.705 & 38.827 \\
+ & RWRelu 4-STAR & 0.700 & 0.705 & 42.990 \\
+ & RWRelu 5-STAR & 0.709 & 0.706 & 49.571 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.704 & 0.706 & 15.570 \\
+\cline{1-5}
+\multirow[t]{8}{*}{LargeKitchenAppliances} & EBM & 0.840 & 0.743 & 19.103 \\
+ & RWRelu & 0.813 & 0.743 & 8.775 \\
+ & RWRelu 1-STAR & 0.764 & 0.724 & 52.104 \\
+ & RWRelu 2-STAR & 0.786 & 0.748 & 56.938 \\
+ & RWRelu 3-STAR & 0.777 & 0.736 & 60.735 \\
+ & RWRelu 4-STAR & 0.803 & 0.746 & 68.894 \\
+ & RWRelu 5-STAR & 0.810 & 0.745 & 75.208 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.812 & 0.749 & 37.741 \\
+\cline{1-5}
+\multirow[t]{8}{*}{MelbournePedestrian} & EBM & 0.979 & 0.924 & 9.731 \\
+ & RWRelu & 0.946 & 0.925 & 2.335 \\
+ & RWRelu 1-STAR & 0.888 & 0.888 & 35.930 \\
+ & RWRelu 2-STAR & 0.921 & 0.902 & 36.519 \\
+ & RWRelu 3-STAR & 0.943 & 0.923 & 40.523 \\
+ & RWRelu 4-STAR & 0.943 & 0.925 & 44.806 \\
+ & RWRelu 5-STAR & 0.943 & 0.924 & 50.667 \\
+ & RWRelu [1, 2, 3, 4, 5]-STAR & 0.941 & 0.919 & 16.232 \\
+\cline{1-5}
+\bottomrule
+\end{tabular}
