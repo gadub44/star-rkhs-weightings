@@ -66,7 +66,7 @@ if __name__ == '__main__':
                 learner = LeastSquaresLearner(n_iter=100, rng=RNG)
                 clf = RKHSWeightingRegressor(learner, model).fit(X, y)
                 star_time, star_values = STAR_time(clf.model, X)
-                star_results = pd.DataFrame({'Algorithm' : ['n-STAR'], 'n' : [n], 'time' : [star_time]})
+                star_results = pd.DataFrame({'Algorithm' : ['STAR-SHAP (n-STAR)'], 'n' : [n], 'time' : [star_time]})
                 if VERBOSE:
                     print(f'STAR time for FS size {n} and n={n}  : {round(star_time, 1)} seconds.')
                 df = pd.concat([df, star_results], ignore_index=True)
@@ -77,7 +77,7 @@ if __name__ == '__main__':
                     learner = LeastSquaresLearner(n_iter=100, rng=RNG)
                     clf = RKHSWeightingRegressor(learner, model).fit(X, y)
                     star_time, star_values = STAR_time(clf.model, X)
-                    star_results = pd.DataFrame({'Algorithm' : [f'{k}-STAR'], 'n' : [n], 'time' : [star_time]})
+                    star_results = pd.DataFrame({'Algorithm' : [f'STAR-SHAP ({k}-STAR)'], 'n' : [n], 'time' : [star_time]})
                     if VERBOSE:
                         print(f'STAR time for FS size {k} and n={n}  : {round(star_time, 1)} seconds.')
                     df = pd.concat([df, star_results], ignore_index=True)
@@ -95,6 +95,8 @@ if __name__ == '__main__':
         df.to_csv(RESULTS_PATH)
 
     df = pd.read_csv(RESULTS_PATH)
+    df = df.replace('n-STAR', 'STAR-SHAP (n-STAR)')
+    df = df.replace('5-STAR', 'STAR-SHAP (5-STAR)')
     grouped = df.groupby('Algorithm')
     fig, ax = plt.subplots(figsize=(8, 6), dpi=300)
     plt.grid(True, which='both', linestyle='-', linewidth=0.5, color='lightgray', zorder=1)
