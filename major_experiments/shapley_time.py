@@ -100,11 +100,18 @@ if __name__ == '__main__':
     grouped = df.groupby('Algorithm')
     fig, ax = plt.subplots(figsize=(8, 6), dpi=300)
     plt.grid(True, which='both', linestyle='-', linewidth=0.5, color='lightgray', zorder=1)
+    MARKERS = ['+', 'x', '*']
+    i=0
     for algo, group in grouped:
         if algo == 'SHAP':
-            plt.plot(group['n'][1:12], group['time'][1:12], label=algo, linewidth=2, antialiased=True, zorder=3)
+            plt.plot(group['n'][1:12], group['time'][1:12], 
+                     label=algo, linewidth=0.8, antialiased=True, zorder=3,
+                     marker=MARKERS[i], markersize=8)
         else:
-            plt.plot(group['n'], group['time'], label=algo, linewidth=2, antialiased=True, zorder=3)
+            plt.plot(group['n'], group['time'], 
+                     label=algo, linewidth=0.8, antialiased=True, zorder=3,
+                     marker=MARKERS[i], markersize=8)
+        i += 1
     ax.set_axisbelow(False)
     ax.set_xticks(range(0, MAX_DIM+1, 2))
     ax.set_xlabel('n', fontsize=14)
