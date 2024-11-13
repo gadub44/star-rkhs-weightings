@@ -5,6 +5,8 @@ from scipy.special import comb
 from typing import List
 from tqdm import tqdm
 
+from utils import ensure_X_2d
+
 def replace_over_FS(data: np.ndarray, x: np.ndarray, FS: List[int]):
     if len(FS) == 0:
         return data
@@ -275,3 +277,65 @@ class BruteForceExplainer(Explainer):
             up_to_idx = p[:p.index(idx)]
             value += np.mean(self.model(replace_over_FS(self.data, x, up_to_idx)))
         return value / factorial(len(x))
+    
+class SOUM_term:
+    def __init__(self, fs, coef) -> None:
+        self.fs = sorted(fs)
+        self.coef = coef
+
+class SOUM:
+    """
+        Sum of unanimity model.
+
+        X must be a vector of 0's and 1's.
+    """
+    def __init__(self) -> None:
+        self.terms = []
+
+    def add_term(self, term: SOUM_term):
+        self.terms.append(term)
+
+    def partial(self, fs):
+        relevant_terms = [term for term in self.terms if term.fs == fs]
+        def partial_model(X: np.ndarray):
+            X_2d = ensure_X_2d(X)
+            output = np.zeros(X_2d.shape[0])
+            for term in relevant_terms:
+                output += term.coef * (X_2d[:, fs].reshape(X_2d.shape[0], len(fs)) == 1).all(axis=1).astype(int)
+            return output
+        return partial_model
+    
+    def get_all_unique_fs(self):
+        unique_fs = []
+        for fs in [sorted(list(term.fs)) for term in self.terms]:
+            if fs not in unique_fs:
+                unique_fs.append(fs)
+        return unique_fs
+
+    def __call__(self, X: np.ndarray) -> float:
+        output = np.zeros(X.shape[0])
+        for fs in self.get_all_unique_fs():
+            output += self.partial(fs)(X)
+        return output
+    
+
+class SOUM_Generator:
+    def __init__(self, n_dim, n_terms, min_fs_length, max_fs_length, rng=0) -> None:
+        self.n_dim = n_dim
+        self.n_terms = n_terms
+        self.min_fs_length = min_fs_length
+        self.max_fs_length = max_fs_length
+        self.rng = np.random.default_rng(rng)
+
+    def sample(self) -> SOUM:
+        soum = SOUM()
+        for _ in range(self.n_terms):
+            fs_length = self.rng.integers(low=self.min_fs_length, high=self.max_fs_length+1)
+            fs = self.rng.choice(self.n_dim, size=fs_length, replace=False)
+            coef = self.rng.uniform()
+            soum.add_term(SOUM_term(fs, coef))
+        return soum
+    
+def generate_boolean_dataset(n_examples, n_dim, rng=0):
+    rng = np.random.default_rng(rng)
+    return rng.choice([0,1], size=(n_examples, n_dim))
