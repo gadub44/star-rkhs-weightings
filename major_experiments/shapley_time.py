@@ -5,7 +5,6 @@ import pandas as pd
 from time import time
 import shap
 import shapiq
-from sklearn.datasets import make_regression
 
 from expe_utils import RESULTS_FOLDER, FIGURES_FOLDER
 from Shapley import STAR_Explainer, SOUM_Generator, generate_boolean_dataset
