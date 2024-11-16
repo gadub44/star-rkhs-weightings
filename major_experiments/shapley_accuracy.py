@@ -23,20 +23,20 @@ RNG = np.random.default_rng(0)
 VERBOSE = True
 RUN = not args.norun
 if args.test:
-    DIMS = [10, 100, 500]
-    N_TERMS = [10, 100, 500]
-    MAX_FS_LENGTHS = [5]*3
-    BUDGETS = [np.linspace(10, 100, num=10, dtype=int)]*3
-    MIN_FS_LENGTH = 2
-    N_SAMPLES = 10
+    DIMS = [500]
+    N_TERMS = [500]
+    MAX_FS_LENGTHS = [8]
+    BUDGETS = [np.linspace(10, 5000, num=5, dtype=int)]
+    MIN_FS_LENGTH = 8
+    N_SAMPLES = 2
     N_SHAPIQ_RUNS = 2
 else:
     DIMS = [10, 100, 500]
     N_TERMS = [10, 100, 500]
     MAX_FS_LENGTHS = [6, 7, 8]
-    BUDGETS = [np.linspace(40, 400, num=20, dtype=int),
-               np.linspace(10, 5000, num=20, dtype=int),   
-               np.linspace(50, 2000, num=20, dtype=int)]
+    BUDGETS = [np.linspace(10, 400, num=20, dtype=int),
+               np.linspace(10, 2000, num=20, dtype=int),
+               np.linspace(10, 5000, num=20, dtype=int)]   
     MIN_FS_LENGTH = 2
     N_SAMPLES = 10
     N_SHAPIQ_RUNS = 20

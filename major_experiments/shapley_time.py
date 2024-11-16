@@ -17,6 +17,7 @@ parser.add_argument('--norun', action='store_true', help='Do not run the experim
 parser.add_argument('--test', action='store_true', help='Quicker experiment for testing purposes.')
 args = parser.parse_args()
 
+# TODO Make the figures an average
 
 RNG = np.random.default_rng(0)
 VERBOSE = True
@@ -37,8 +38,8 @@ else:
     N_SAMPLES = 100 # Increase this to smooth out the figure
     MAX_TIME = 30 # 5 minutes
     RESULTS_PATH = RESULTS_FOLDER + 'shapley_time.csv'
-    FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_small.pdf'
-    FIG_PATH_RIGHT = FIGURES_FOLDER + 'shapley_time_large.pdf'
+    FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_left.pdf'
+    FIG_PATH_RIGHT = FIGURES_FOLDER + 'shapley_time_right.pdf'
 
 def STAR_time(model, X):
     explainer = STAR_Explainer(model, X)
