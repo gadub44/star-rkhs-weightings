@@ -35,11 +35,11 @@ else:
     N_TERMS = [10, 100, 500]
     MAX_FS_LENGTHS = [6, 7, 8]
     BUDGETS = [np.linspace(10, 400, num=20, dtype=int),
-               np.linspace(10, 2000, num=20, dtype=int),
-               np.linspace(10, 5000, num=20, dtype=int)]   
+               np.linspace(10, 5000, num=20, dtype=int),
+               np.linspace(10, 10000, num=20, dtype=int)]   
     MIN_FS_LENGTH = 2
     N_SAMPLES = 10
-    N_SHAPIQ_RUNS = 20
+    N_SHAPIQ_RUNS = 10
 
 def get_results_path(dim):
     if args.test:
@@ -130,11 +130,14 @@ def run_expe():
 def make_figs():
     for j in range(len(DIMS)):
         df = pd.read_csv(get_results_path(DIMS[j]), index_col=0)
+        max_time = max(df['time'])
 
         # Group data and prepare for plotting
         grouped = df.groupby(['Algorithm', 'max fs size'])
-        fig, ax = plt.subplots(figsize=(8, 6), dpi=300)
-        plt.grid(True, which='both', linestyle='-', linewidth=0.5, color='lightgray', zorder=1)
+        ratio = 4/3
+        edge = 3.5
+        fig, ax = plt.subplots(figsize=(ratio * edge, edge), dpi=300)
+        plt.grid(axis='y', which='both', linestyle='-', linewidth=0.5, color='lightgray', zorder=1)
 
         MARKERS = ['+', 'x', '*', 'v', '1', 'D']
         y_max = 0.6
@@ -145,7 +148,7 @@ def make_figs():
             if 'STAR-SHAP' in algo:
                 # Vertical line to indicate STAR-SHAP time
                 x_val = max(group['time'])
-                plt.axvline(x=x_val + 0.02, color="gray", linestyle=":", linewidth=1)
+                plt.axvline(x=x_val + 0.008*max_time, color="gray", linestyle=":", linewidth=1)
                 plt.text(x=x_val, y=y_max, s=algo, rotation=90, ha='center', va='bottom', 
                         color="gray", fontsize=10, fontweight='bold')
             else:  # SHAP-IQ
@@ -158,7 +161,7 @@ def make_figs():
                     1-agg_group['r2'],
                     label=f'{k}-SHAP-IQ',
                     linewidth=0.8, antialiased=True, zorder=3,
-                    marker=MARKERS[i % len(MARKERS)], markersize=8
+                    marker=MARKERS[i % len(MARKERS)], markersize=4
                 )
 
         # Finalize plot
