@@ -39,7 +39,7 @@ else:
                np.linspace(10, 10000, num=20, dtype=int)]   
     MIN_FS_LENGTH = 2
     N_SAMPLES = 10
-    N_SHAPIQ_RUNS = 0
+    N_SHAPIQ_RUNS = 10
 
 def get_results_path(dim):
     if args.test:
