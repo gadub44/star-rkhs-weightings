@@ -31,27 +31,30 @@ if args.test:
     N_SAMPLES = 2
     N_SHAPIQ_RUNS = 2
 else:
-    DIMS = [10, 100, 500]
-    N_TERMS = [10, 100, 500]
-    MAX_FS_LENGTHS = [6, 7, 8]
-    BUDGETS = [np.linspace(10, 400, num=20, dtype=int),
-               np.linspace(10, 5000, num=20, dtype=int),
-               np.linspace(10, 10000, num=20, dtype=int)]   
+    # DIMS = [10, 100, 500]
+    DIMS = [10, 500]
+    # N_TERMS = [100, 100, 100]
+    N_TERMS = [100, 100]
+    # MAX_FS_LENGTHS = [4, 7, 8]
+    MAX_FS_LENGTHS = [4, 10] # 7
+    BUDGETS = [np.linspace(2, 400, num=20, dtype=int),
+            #    np.linspace(10, 2000, num=20, dtype=int),
+               np.linspace(10, 1000, num=20, dtype=int),]   
     MIN_FS_LENGTH = 2
     N_SAMPLES = 10
     N_SHAPIQ_RUNS = 10
 
-def get_results_path(dim):
+def get_results_path(dim, n_terms):
     if args.test:
-        return RESULTS_FOLDER + f'shapley_accuracy{dim}-test.csv'
+        return RESULTS_FOLDER + f'shapley_accuracy-n{dim}-T{n_terms}-test.csv'
     else:
-        return RESULTS_FOLDER + f'shapley_accuracy{dim}.csv'
+        return RESULTS_FOLDER + f'shapley_accuracy-n{dim}-T{n_terms}.csv'
     
-def get_fig_path(dim):
+def get_fig_path(dim, n_terms):
     if args.test:
-        return FIGURES_FOLDER + f'shapley_accuracy{dim}-test.pdf'
+        return FIGURES_FOLDER + f'shapley_accuracy-n{dim}-T{n_terms}-test.pdf'
     else:
-        return FIGURES_FOLDER + f'shapley_accuracy{dim}.pdf'
+        return FIGURES_FOLDER + f'shapley_accuracy-n{dim}-T{n_terms}.pdf'
 
 def STAR_time(model, X):
     explainer = STAR_Explainer(model, X)
@@ -124,12 +127,12 @@ def run_expe():
                             df = pd.concat([df, shap_results], ignore_index=True)
                 if VERBOSE:
                     print(f'SHAP-IQ budget={budget} total time : {round(total_shapiq_time, 2)} seconds.')
-        df.to_csv(get_results_path(DIM))
+        df.to_csv(get_results_path(DIM, N_TERM))
         print(f'Total experiment time : {round(time() - total_time_start, 0)} seconds.')
 
 def make_figs():
     for j in range(len(DIMS)):
-        df = pd.read_csv(get_results_path(DIMS[j]), index_col=0)
+        df = pd.read_csv(get_results_path(DIMS[j], N_TERMS[j]), index_col=0)
         max_time = max(df['time'])
 
         # Group data and prepare for plotting
@@ -139,9 +142,9 @@ def make_figs():
         fig, ax = plt.subplots(figsize=(ratio * edge, edge), dpi=300)
         plt.grid(axis='y', which='both', linestyle='-', linewidth=0.5, color='lightgray', zorder=1)
 
-        MARKERS = ['+', 'x', '*', 'v', '1', 'D']
+        MARKERS = ['+', 'x', '*', 'v', '1', 'D', 'o']
         y_max = 0.6
-
+        marker_i = 0
         # Loop over groups for plotting
         for i, ((algo, k), group) in enumerate(grouped):
             # Separate STAR-SHAP and SHAP-IQ for different plotting requirements
@@ -161,17 +164,18 @@ def make_figs():
                     1-agg_group['r2'],
                     label=f'{k}-SHAP-IQ',
                     linewidth=0.8, antialiased=True, zorder=3,
-                    marker=MARKERS[i % len(MARKERS)], markersize=4
+                    marker=MARKERS[marker_i % len(MARKERS)], markersize=4
                 )
+                marker_i += 1
 
         # Finalize plot
         ax.set_axisbelow(False)
         ax.set_xlabel('Time (s)', fontsize=14)
         plt.ylabel('1 - Coefficient of determination', fontsize=14, labelpad=10)
-        plt.legend(frameon=True, fontsize=12, facecolor='white', framealpha=1)
+        plt.legend(frameon=True, fontsize=9, facecolor='white', framealpha=1, loc='upper right')
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.15)
-        plt.savefig(get_fig_path(DIMS[j]), bbox_inches='tight')
+        plt.savefig(get_fig_path(DIMS[j], N_TERMS[j]), bbox_inches='tight')
         plt.show()
 
 if __name__ == '__main__':

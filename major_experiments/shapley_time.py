@@ -164,7 +164,7 @@ def make_fig(which='left'):
         else:
             idx_20 = len(algo_data['n'])
         if which == 'left':
-            plt.plot(algo_data['n'][1:idx_20], algo_data['time'][1:idx_20], 
+            plt.plot(algo_data['n'][:idx_20], algo_data['time'][:idx_20], 
                     label=algo, color=color, linewidth=0.8, antialiased=True, zorder=3,
                     marker=marker, markersize=8)
         elif which == 'right':
@@ -180,6 +180,7 @@ def make_fig(which='left'):
     plt.tight_layout()
     plt.subplots_adjust(bottom=0.15)
     if which == 'left':
+        plt.xticks(list(range(2, 20, 2)))
         plt.savefig(FIG_PATH_LEFT, bbox_inches='tight')
     if which == 'right':
         plt.savefig(FIG_PATH_RIGHT, bbox_inches='tight')

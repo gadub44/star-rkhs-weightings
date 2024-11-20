@@ -98,7 +98,8 @@ class TestParams:
         self.EBM_PARAMS = {'max_bins': [512],
                            'learning_rate': [0.005],
                            'max_rounds': [1000],
-                           'min_samples_leaf': [1]}
+                           'min_samples_leaf': [1],
+                           'random_state': [0]}
 
 
 class AlmostFinalParams:
@@ -119,7 +120,8 @@ class AlmostFinalParams:
         self.EBM_PARAMS = {'max_bins': [512, 1024, 2048],
                            'learning_rate': [0.005, 0.01, 0.02],
                            'max_rounds': [15000, 25000, 35000],
-                           'min_samples_leaf': [1, 2, 3]}
+                           'min_samples_leaf': [1, 2, 3],
+                           'random_state': [0]}
 
 
 class FinalParams:
@@ -140,7 +142,8 @@ class FinalParams:
         self.EBM_PARAMS = {'max_bins': [512, 1024, 2048],
                            'learning_rate': [0.005, 0.01, 0.02],
                            'max_rounds': [15000, 25000, 35000],
-                           'min_samples_leaf': [1, 2, 3]}
+                           'min_samples_leaf': [1, 2, 3],
+                           'random_state': [0]}
 
 
 class JMLR2024RegressionExperiment(RegressionExperiment):

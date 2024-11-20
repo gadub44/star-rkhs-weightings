@@ -1,7 +1,6 @@
 import pandas as pd
 import pickle
 from sklearn.metrics import r2_score
-from pygam import LinearGAM
 from sklearn.model_selection import GridSearchCV
 
 from time import time
@@ -137,20 +136,6 @@ class RegressionExperiment:
             results[key] = cv.best_params_[key]
         results.update(get_R2(cv.best_estimator_, data_loader))
         self.write_results(results)
-
-    def run_gam(self):
-        for data_loader in self.DATASET_LOADERS:
-            algo_name = 'Splines GAM'
-            results = {'algorithm' : algo_name}
-            results['dataset'] = [data_loader.name]
-            X, y = data_loader.get_train_X_y()
-            start = time()
-            lams = np.tile(self.GAM_LAMS, (X.shape[1], 1)).T
-            gam = LinearGAM().gridsearch(X, y, lam=lams) 
-            results['fit time'] = (time() - start) / len(self.GAM_LAMS)
-            results.update(get_R2(gam, data_loader))
-            self.write_results(results)
-            self.time_tracker.update()
 
     def write_results(self, results: dict):
         df = pd.DataFrame.from_dict(results)

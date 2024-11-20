@@ -64,26 +64,27 @@ if RUN:
             learning_rate=0.01, 
             max_bins=512, 
             max_rounds=15000, 
-            min_samples_leaf=2)
+            min_samples_leaf=2, 
+            random_state=0)
     star_rkhs = FSModel(input=X_train,
                         base_model_class=RWRelu,
                         base_model_params={'max_theta' : 0.5},
                         fs_length=3,
-                        fs_type='any')
-    learner = LeastSquaresLearner(n_iter=N_ITER, regularization=1e-09)
+                        fs_type='any',
+                        rng=RNG)
+    learner = LeastSquaresLearner(n_iter=N_ITER, regularization=1e-09, rng=RNG)
     clf = RKHSWeightingRegressor(learner=learner, model=star_rkhs)
-
+    print('Training EBM...')
     ebm.fit(X_train, y_train)
-    print('EBM training done.')
+    print('Training RKHS Weighting...')
     clf.fit(X_train, y_train)
-    print('RKHS Weighting training done.')
 
     print('Calculating RKHS Weighting Shapley values...')
     star_explainer = STAR_Explainer(clf.model, X_train[:BACKGROUND_SIZE])
     rkhs_shap_values = star_explainer.shap_values(X_test[:TEST_SIZE], verbose=True)
     rkhs_explanation = shap.Explanation(
         values=rkhs_shap_values,
-        data=X_train,           
+        data=X_train[:BACKGROUND_SIZE],           
         feature_names=feature_names
     )
     with open(RKHS_PICKLE, "wb") as f:
@@ -94,17 +95,21 @@ if RUN:
     ebm_shap_values = tree_explainer(X_test[:TEST_SIZE])
     ebm_explanation = shap.Explanation(
         values=ebm_shap_values,
-        data=X_train,       
+        data=X_train[:BACKGROUND_SIZE],       
         feature_names=feature_names
     )
     with open(EBM_PICKLE, "wb") as f:
         pickle.dump(ebm_explanation, f)
+    print('Experiment done.')
 
 with open(RKHS_PICKLE, "rb") as f:
     rkhs_explanation = pickle.load(f)
 
 with open(EBM_PICKLE, "rb") as f:
     ebm_explanation = pickle.load(f)
+
+ebm_explanation.data = X_train[:BACKGROUND_SIZE]
+rkhs_explanation.data = X_train[:BACKGROUND_SIZE]
 
 fig, ax = plt.subplots(figsize=(5, 5))
 shap.plots.beeswarm(ebm_explanation, show=False)
@@ -129,6 +134,7 @@ plt.show()
 # plt.clf()
 
 example_index = 0
+print(f'True y of the explained example : {y_test[0]}')
 
 shap_values_single = ebm_explanation.values[example_index] 
 data_single = ebm_explanation.data[example_index]
