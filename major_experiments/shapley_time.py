@@ -21,17 +21,17 @@ RNG = np.random.default_rng(0)
 VERBOSE = True
 RUN = not args.norun
 if args.test:
-    DIMS = list(range(2, 20, 1)) + list(range(20, 51, 10))
+    DIMS = list(range(2, 20, 2)) + list(range(20, 3001, 100))
     MAX_FS_LENGTH = 4
     MIN_FS_LENGTH = MAX_FS_LENGTH
     N_SAMPLES = 10
-    MAX_TIME = 3
-    N_RUNS = 2 # Increase this to smooth out the figure
+    MAX_TIME = 2
+    N_RUNS = 1 # Increase this to smooth out the figure
     RESULTS_PATH = RESULTS_FOLDER + 'shapley_time-test.csv'
     FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_left-test.pdf'
     FIG_PATH_RIGHT = FIGURES_FOLDER + 'shapley_time_right-test.pdf'
 else:
-    DIMS = list(range(2, 20, 1)) + list(range(20, 201, 10))
+    DIMS = list(range(2, 20, 1)) + list(range(20, 2021, 100))
     MAX_FS_LENGTH = 5
     MIN_FS_LENGTH = MAX_FS_LENGTH
     N_SAMPLES = 100

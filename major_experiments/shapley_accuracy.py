@@ -35,7 +35,7 @@ else:
     DIMS = [10, 500]
     # N_TERMS = [100, 100, 100]
     N_TERMS = [100, 100]
-    # MAX_FS_LENGTHS = [4, 7, 8]
+    # MAX_FS_LENGTHS = [4, 7, 10]
     MAX_FS_LENGTHS = [4, 10] # 7
     BUDGETS = [np.linspace(10, 500, num=20, dtype=int),
             #    np.linspace(10, 2000, num=20, dtype=int),
