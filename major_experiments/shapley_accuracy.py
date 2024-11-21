@@ -1,5 +1,7 @@
 import argparse
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import matplotlib.markers as mmarkers
 import numpy as np
 import pandas as pd
 from time import time
@@ -29,20 +31,20 @@ if args.test:
     N_TERMS = [500]
     MAX_FS_LENGTHS = [8]
     BUDGETS = [np.linspace(10, 5000, num=5, dtype=int)]
-    MIN_FS_LENGTH = 8
+    MIN_FS_LENGTH = [8]
     N_SAMPLES = 2
     N_SHAPIQ_RUNS = 2
 else:
-    # DIMS = [10, 100, 500]
-    DIMS = [10, 500]
-    # N_TERMS = [100, 100, 100]
-    N_TERMS = [100, 100]
-    # MAX_FS_LENGTHS = [4, 7, 10]
-    MAX_FS_LENGTHS = [4, 10] # 7
+    DIMS = [10, 100, 500]
+    # DIMS = [10, 500]
+    N_TERMS = [100, 100, 100]
+    # N_TERMS = [100, 100]
+    MAX_FS_LENGTHS = [4, 7, 10]
+    MIN_FS_LENGTHS = [2, 3, 6]
+    # MAX_FS_LENGTHS = [4, 10] # 7
     BUDGETS = [np.linspace(10, 500, num=20, dtype=int),
-            #    np.linspace(10, 2000, num=20, dtype=int),
+               np.linspace(10, 2000, num=20, dtype=int),
                np.linspace(10, 10000, num=20, dtype=int),]   
-    MIN_FS_LENGTH = 2
     N_SAMPLES = 10
     N_SHAPIQ_RUNS = 10
 
@@ -90,6 +92,7 @@ def run_expe():
     for i in range(len(DIMS)):
         DIM = DIMS[i]
         MAX_FS_LENGTH = MAX_FS_LENGTHS[i]
+        MIN_FS_LENGTH = MIN_FS_LENGTHS[i]
         BUDGET = BUDGETS[i]
         N_TERM = N_TERMS[i]
 
@@ -143,32 +146,37 @@ def make_figs():
         edge = 3.5
         fig, ax = plt.subplots(figsize=(ratio * edge, edge), dpi=300)
         plt.grid(axis='y', which='both', linestyle='-', linewidth=0.5, color='lightgray', zorder=1)
-
-        MARKERS = ['+', 'x', '*', 'v', '1', 'D', 'o']
-        y_max = 0.6
-        marker_i = 0
+        num_colors = max(MAX_FS_LENGTHS)  # Choose the number of distinct colors you want
+        color_list = [cm.tab10(i) for i in range(num_colors)]
+        # marker_list = list(mmarkers.MarkerStyle.markers.keys())
+        marker_list = ['+', 'x', '*', 'v', '1', 'D', 'o', 's', 'p']
+        text_height = 0.6
+        # marker_i = 0
         # Loop over groups for plotting
         for i, ((algo, k), group) in enumerate(grouped):
-            # Separate STAR-SHAP and SHAP-IQ for different plotting requirements
-            if 'STAR-SHAP' in algo:
-                # Vertical line to indicate STAR-SHAP time
-                x_val = max(group['time'])
-                plt.axvline(x=x_val + 0.008*max_time, color="gray", linestyle=":", linewidth=1)
-                plt.text(x=x_val, y=y_max, s=algo, rotation=90, ha='center', va='bottom', 
-                        color="gray", fontsize=10, fontweight='bold')
-            else:  # SHAP-IQ
-                agg_group = group.groupby('budget').agg({
-                    'r2': 'mean',
-                    'time': 'mean',
-                }).reset_index().sort_values('time')
-                plt.plot(
-                    agg_group['time'], 
-                    1-agg_group['r2'],
-                    label=f'{k}-SHAP-IQ',
-                    linewidth=0.8, antialiased=True, zorder=3,
-                    marker=MARKERS[marker_i % len(MARKERS)], markersize=4
-                )
-                marker_i += 1
+            if not k < MIN_FS_LENGTHS[j]:
+                # Separate STAR-SHAP and SHAP-IQ for different plotting requirements
+                if 'STAR-SHAP' in algo:
+                    # Vertical line to indicate STAR-SHAP time
+                    x_val = max(group['time'])
+                    plt.axvline(x=x_val + 0.008*max_time, color="gray", linestyle=":", linewidth=1)
+                    plt.text(x=x_val, y=text_height, s=algo, rotation=90, ha='center', va='bottom', 
+                            color="gray", fontsize=10, fontweight='bold')
+                else:  # SHAP-IQ
+                    agg_group = group.groupby('budget').agg({
+                        'r2': 'mean',
+                        'time': 'mean',
+                    }).reset_index().sort_values('time')
+                    plt.plot(
+                        agg_group['time'], 
+                        1-agg_group['r2'],
+                        label=f'{k}-SHAP-IQ',
+                        linewidth=0.8, antialiased=True, zorder=3,
+                        marker=marker_list[k-min(MIN_FS_LENGTHS)], 
+                        color=color_list[k-min(MIN_FS_LENGTHS)],
+                        markersize=4
+                    )
+                    # marker_i += 1
 
         # Finalize plot
         ax.set_axisbelow(False)
