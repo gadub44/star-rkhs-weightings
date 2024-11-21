@@ -33,13 +33,13 @@ if args.test:
     FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_left-test.pdf'
     FIG_PATH_RIGHT = FIGURES_FOLDER + 'shapley_time_right-test.pdf'
 else:
-    DIMS = list(range(2, 20, 1)) + list(range(20, 2021, 100))
+    DIMS = list(range(2, 20, 1)) + list(range(20, 1021, 50))
     MAX_FS_LENGTH = 5
     MIN_FS_LENGTH = MAX_FS_LENGTH
     N_SAMPLES = 50
     MAX_TIME = 30
-    BUDGET = 32
-    N_RUNS = 2 # Increase this to smooth out the figure
+    BUDGET = 64
+    N_RUNS = 10 # Increase this to smooth out the figure
     RESULTS_PATH = RESULTS_FOLDER + 'shapley_time.csv'
     FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_left.pdf'
     FIG_PATH_RIGHT = FIGURES_FOLDER + 'shapley_time_right.pdf'
@@ -85,7 +85,8 @@ def SHAPIQ_time(model, X: np.ndarray):
 
 def run_expe():
     df = pd.DataFrame()
-    for _ in trange(N_RUNS):
+    for n_run in trange(N_RUNS):
+        print(f'Starting run {n_run+1} of {N_RUNS}.')
         run_nstar = True
         run_shap = True
         for n in DIMS:
