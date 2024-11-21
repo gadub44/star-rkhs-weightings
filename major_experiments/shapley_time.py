@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from time import time
+from tqdm import trange
 import shap
 import shapiq
 
@@ -21,11 +22,12 @@ RNG = np.random.default_rng(0)
 VERBOSE = True
 RUN = not args.norun
 if args.test:
-    DIMS = list(range(2, 20, 2)) + list(range(20, 3001, 100))
+    DIMS = list(range(2, 20, 2)) + list(range(20, 2001, 100))
     MAX_FS_LENGTH = 4
     MIN_FS_LENGTH = MAX_FS_LENGTH
     N_SAMPLES = 10
     MAX_TIME = 2
+    BUDGET = 32
     N_RUNS = 1 # Increase this to smooth out the figure
     RESULTS_PATH = RESULTS_FOLDER + 'shapley_time-test.csv'
     FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_left-test.pdf'
@@ -34,9 +36,10 @@ else:
     DIMS = list(range(2, 20, 1)) + list(range(20, 2021, 100))
     MAX_FS_LENGTH = 5
     MIN_FS_LENGTH = MAX_FS_LENGTH
-    N_SAMPLES = 100
+    N_SAMPLES = 50
     MAX_TIME = 30
-    N_RUNS = 10 # Increase this to smooth out the figure
+    BUDGET = 32
+    N_RUNS = 2 # Increase this to smooth out the figure
     RESULTS_PATH = RESULTS_FOLDER + 'shapley_time.csv'
     FIG_PATH_LEFT = FIGURES_FOLDER + 'shapley_time_left.pdf'
     FIG_PATH_RIGHT = FIGURES_FOLDER + 'shapley_time_right.pdf'
@@ -65,7 +68,7 @@ def shapiq_values_for_approximator(model, X: np.ndarray, approximator):
         sample_size=X.shape[0],
         random_state=42,
     )
-    shap_values = explainer.explain_X(X, budget=256)
+    shap_values = explainer.explain_X(X, budget=BUDGET)
     return time()-start, shap_values 
 
 def KSHAP_time(model, X: np.ndarray):
@@ -82,7 +85,7 @@ def SHAPIQ_time(model, X: np.ndarray):
 
 def run_expe():
     df = pd.DataFrame()
-    for _ in range(N_RUNS):
+    for _ in trange(N_RUNS):
         run_nstar = True
         run_shap = True
         for n in DIMS:

@@ -6,6 +6,8 @@ from time import time
 import shap
 import shapiq
 from sklearn.metrics import r2_score
+import warnings
+warnings.filterwarnings("ignore")
 
 from expe_utils import RESULTS_FOLDER, FIGURES_FOLDER
 from Shapley import STAR_Explainer
