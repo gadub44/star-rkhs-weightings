@@ -1,15 +1,8 @@
-# california housing
-# ebm, learning rate=0.01, max_bins = 512, max_rounds=15000, min_sample_leaf=2
-# relu 3-star, max_theta=0.5, reg=1E-09
-
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import pickle
-from time import time
 import shap
-import shapiq
 
 from interpret.glassbox import ExplainableBoostingRegressor as EBM
 from sklearn.datasets import fetch_california_housing

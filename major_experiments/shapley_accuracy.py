@@ -1,7 +1,6 @@
 import argparse
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import matplotlib.markers as mmarkers
 import numpy as np
 import pandas as pd
 from time import time
@@ -18,7 +17,7 @@ from Shapley import SOUM_Generator, generate_boolean_dataset
 import visuals
 visuals.set_visual_settings()
 
-parser = argparse.ArgumentParser(description='Variance of the SHAP-IQ approximation of the Shapley Values.')
+parser = argparse.ArgumentParser(description='1-R^2 of the SHAP-IQ approximation of the Shapley Values.')
 parser.add_argument('--norun', action='store_true', help='Do not run the experiment. Only generate the figure.')
 parser.add_argument('--test', action='store_true', help='Quicker experiment for testing purposes.')
 args = parser.parse_args()
@@ -41,7 +40,7 @@ else:
     # N_TERMS = [100, 100]
     MAX_FS_LENGTHS = [4, 7, 10]
     MIN_FS_LENGTHS = [2, 3, 6]
-    # MAX_FS_LENGTHS = [4, 10] # 7
+    # MAX_FS_LENGTHS = [4, 10]
     BUDGETS = [np.linspace(10, 500, num=20, dtype=int),
                np.linspace(10, 2000, num=20, dtype=int),
                np.linspace(10, 10000, num=20, dtype=int),]   
